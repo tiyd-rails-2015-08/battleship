@@ -8,6 +8,7 @@ require './humanplayer.rb'
 require './computerplayer.rb'
 require './ship.rb'
 require './grid.rb'
+require './position.rb'
 
 $mock_inputs = []
 def get_user_input
