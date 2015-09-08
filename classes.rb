@@ -147,6 +147,17 @@ class Grid
     end
   end
 
+  def sunk?()
+    empty_grid = true
+    (1..100).each do |i|
+      if @locations[i].occupied
+        @locations[i].fired_at ? () : (return false)
+        empty_grid = false
+      end
+    end
+    !empty_grid
+  end
+
   def display()
     #Outputs game grid to the user
     puts empty_grid
