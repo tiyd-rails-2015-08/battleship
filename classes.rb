@@ -101,16 +101,25 @@ class Grid
   end
 
   def place_ship (ship, x, y, across)
-    ship.place(x, y, across)
     if across
-      (x..x+ship.length-1).each {|i| @locations[get_position(i, y)].occupied = true}
+      (x..x+ship.length-1).each do |i|
+        return false if has_ship_on?(i, y)
+      end
     else
-      (y..y+ship.length-1).each { |i| @locations[get_position(x, i)].occupied = true}
+      (y..y+ship.length-1).each do |i|
+        return false if has_ship_on?(x, i)
+      end
     end
+      ship.place(x, y, across)
+      if across
+        (x..x+ship.length-1).each {|i| @locations[get_position(i, y)].occupied = true}
+      else
+        (y..y+ship.length-1).each { |i| @locations[get_position(x, i)].occupied = true}
+      end
   end
 
   def display()
-    puts self.empty_grid
+    puts empty_grid
   end
 
   def empty_grid
