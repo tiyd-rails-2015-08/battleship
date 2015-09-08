@@ -20,7 +20,7 @@ end
 
 class Ship
 
-  attr_reader :length#, :across, :x, :y
+  attr_reader :length
 
   def initialize(length)
     @length = length
@@ -72,10 +72,45 @@ class Ship
 
 end
 
+class Position
+
+  attr_accessor :occupied
+
+  def initialize()
+    @occupied = false
+  end
+
+end
+
+
 class Grid
 
+  def initialize()
+    @locations = Array.new(100)
+      (1..100).each do |i|
+        @locations[i] = Position.new
+      end
+  end
+
+  def get_position(x, y)
+    x + y * 10
+  end
+
   def has_ship_on?(x, y)
-    false
+    @locations[get_position(x,y)].occupied
+  end
+
+  def place_ship (ship, x, y, across)
+    ship.place(x, y, across)
+    if across
+      (x..x+ship.length-1).each do |i|
+      @locations[get_position(i, y)].occupied = true
+      end
+    else
+      (y..y+ship.length-1).each do |i|
+      @locations[get_position(x, i)].occupied = true
+      end
+    end
   end
 
   def display()
@@ -98,5 +133,7 @@ J |   |   |   |   |   |   |   |   |   |   |
   -----------------------------------------
 }
   end
+
+
 
 end
