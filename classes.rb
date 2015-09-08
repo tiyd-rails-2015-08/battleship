@@ -103,13 +103,9 @@ class Grid
   def place_ship (ship, x, y, across)
     ship.place(x, y, across)
     if across
-      (x..x+ship.length-1).each do |i|
-      @locations[get_position(i, y)].occupied = true
-      end
+      (x..x+ship.length-1).each {|i| @locations[get_position(i, y)].occupied = true}
     else
-      (y..y+ship.length-1).each do |i|
-      @locations[get_position(x, i)].occupied = true
-      end
+      (y..y+ship.length-1).each { |i| @locations[get_position(x, i)].occupied = true}
     end
   end
 
