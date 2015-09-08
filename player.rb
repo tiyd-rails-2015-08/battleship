@@ -1,3 +1,4 @@
+#require ArgumentError < StandardError
 class Player
   def initialize (name)
     @name = name
@@ -11,4 +12,7 @@ class HumanPlayer < Player
 end
 
 class ComputerPlayer < Player
+  def initialize ()
+
+  end
 end
