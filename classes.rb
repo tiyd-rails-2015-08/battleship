@@ -25,6 +25,7 @@ class Ship
   def initialize(length)
     @length = length
     @placed = false
+    @hit_counter = 0
   end
 
   def place(x, y, across)
@@ -40,8 +41,33 @@ class Ship
   end
 
   def overlaps_with?(other_ship)
-    #self.covers?()
-    
+    if @across
+      (@x..@x+length-1).each do |i|
+        if other_ship.covers?(i, @y)
+          return true
+        end
+      end
+    else
+      (@y..@y+length-1).each do |i|
+        if other_ship.covers?(@x, i)
+          return true
+        end
+      end
+    end
+    false
+  end
+
+  def fire_at(x, y)
+    if self.covers?(x, y)
+      @hit_counter += 1
+      true
+    else
+      false
+    end
+  end
+
+  def sunk?()
+    @length == @hit_counter
   end
 
 end
