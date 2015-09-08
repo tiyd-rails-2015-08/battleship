@@ -5,7 +5,7 @@ class Ship
     @length = length
   end
 
-  def place(number1, number2, x = false)
+  def place(number1, number2, x = true)
 
   end
 
