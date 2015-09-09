@@ -1,6 +1,18 @@
 class Grid
+  def initialize
+    @ships = []
+  end
+
   def has_ship_on?(x, y)
+    @ships.each do |ship|
+      return true if ship.covers?(x, y)
+    end
     false
+  end
+
+  def place_ship(ship, x, y, across)
+    ship.place(x, y, across)
+    @ships << ship
   end
 
   def display
@@ -23,4 +35,9 @@ J |   |   |   |   |   |   |   |   |   |   |
   -----------------------------------------
 }
   end
+
+
+
+
+
 end
