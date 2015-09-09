@@ -13,18 +13,23 @@ class HumanPlayer < Player
   end
 
   def place_ships(ship_sizes)
-    puts "#{@name}, where would you like to place a ship of length #{@ships[0].length}?"
-      get_user_input
-    puts "Across or Down?"
-      get_user_input
-    puts "#{@name}, where would you like to place a ship of length #{@ships[1].length}?"
-      get_user_input
-    puts "Across or Down?"
-      get_user_input
+    ship_sizes.each do |size|
+      @ships << Ship.new(size)
+    end
+    @ships.each do |ship|
+      puts "#{@name}, where would you like to place a ship of length #{ship.length}?"
+      position = get_user_input
+      puts "Across or Down?"
+      across = get_user_input
+      across.downcase!
+      across == "across" ? (across = true) : (across = false)
+      if @grid.place_ship(ship, @grid.x_of(position), @grid.y_of(position), across) == false
+        puts "Unfortunately, that ship overlaps with one of your other ships.  Please try again."
+      end
+    end
   end
 
-  @ships << Ship.new(2)
-  @ships << Ship.new(5)
+
 
 
 
