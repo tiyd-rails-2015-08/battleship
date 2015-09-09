@@ -54,8 +54,16 @@ class Grid
     puts "  -----------------------------------------"
   end
 
+  # def fire_at(x, y)
+  #   false unless has_ship_on?(x, y)
+  # end
+
   def fire_at(x, y)
-    false unless has_ship_on?(x, y)
+    if has_ship_on?(x, y)
+      return true
+    else
+      false
+    end
   end
 end
 
