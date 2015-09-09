@@ -2,12 +2,12 @@ class Ship
   @@ys = ('A'..'ZZ').to_a
   attr_accessor :length
   attr_accessor :coverage # ["A1", "B1", "C1"]
-  attr_accessor :shots
+  attr_accessor :shots_received
 
   def initialize(length)
     @length = length
     @coverage = nil
-    @shots = []
+    @shots_received = []
   end
 
   def index_value(x,y)
@@ -19,10 +19,8 @@ class Ship
     @coverage = []
     if across
       coverage_x = (x..x+@length-1).to_a
-      coverage_y = [y]
       coverage_x.each { |xpos| @coverage.push(self.index_value(xpos, y)) }
     else
-      coverage_x = [x]
       coverage_y = (y..y+@length-1).to_a
       coverage_y.each { |ypos| @coverage.push(self.index_value(x, ypos)) }
     end
@@ -48,7 +46,7 @@ class Ship
   def fire_at(x,y)
     shot = index_value(x,y)
     if @coverage.include?(shot)
-      @shots << shot unless @shots.include?(shot)
+      @shots_received << shot unless @shots_received.include?(shot)
       return true
     end
     return false
@@ -56,7 +54,7 @@ class Ship
 
   def sunk?
     return false unless @coverage
-    if @coverage - @shots == []
+    if @coverage - @shots_received == []
       return true
     end
     return false
