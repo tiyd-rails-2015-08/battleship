@@ -44,4 +44,11 @@ class HumanPlayer < Player
     end
 
   end
+
+  def call_shot
+    guess = nil
+
+
+  end
+
 end
