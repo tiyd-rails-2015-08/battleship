@@ -41,10 +41,16 @@ class Ship
   end
 
   def fire_at(x, y)
-    covers?(x, y)
-    #if that position_object is marked as placed, change to x
-    if
-      true
+    #Increments hit_counter on successful hits
+    has_been_hit = Array.new
+    if !has_been_hit.include?([x, y])
+      if covers?(x, y)
+        @hit_counter += 1
+        has_been_hit << [x, y]
+        true
+      else
+        false
+      end
     else
       false
     end
