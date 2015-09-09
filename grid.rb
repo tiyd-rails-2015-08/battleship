@@ -43,9 +43,9 @@ class Grid
 
     potential_coverage = []
     if across
-      (x..x+ship.length-1).to_a.each { |xpos| potential_coverage.push([xpos, y]) }
+      (x..x+ship.length-1).to_a.each { |xpos| potential_coverage << [xpos, y] }
     else
-      (y..y+ship.length-1).to_a.each { |ypos| potential_coverage.push([x, ypos]) }
+      (y..y+ship.length-1).to_a.each { |ypos| potential_coverage << [x, ypos] }
     end
     potential_coverage.each do |pos|
       return false if self.has_ship_on?(pos[0], pos[1])
@@ -113,8 +113,8 @@ class Grid
     return false unless @board.has_key?(position)
 
     # Record shots, even if they're repeats,
-    @shots_fired << position && (return false) if @shots_fired.include?(position)
-    @shots_fired << position
+    @shots_fired << [x,y] && (return false) if @shots_fired.include?([x,y])
+    @shots_fired << [x,y]
 
     if self.has_ship_on?(x,y)
       # hits,
@@ -124,13 +124,12 @@ class Grid
       shot_ship = nil
       @ships.each do |ship|
         break if shot_ship
-        shot_ship = ship if ship.coverage.include?(position)
+        shot_ship = ship if ship.coverage.include?([x,y])
       end
       shot_ship.fire_at(x,y)
-      return true
     else
       # and misses.
-      return false
+      false
     end
 
   end
@@ -141,13 +140,11 @@ class Grid
   end
 
   def x_of(position)
-    numbers = position.gsub(/[^\d]/, "").to_i
-    return numbers
+    position.gsub(/[^\d]/, "").to_i
   end
 
   def y_of(position)
-    letters = position.gsub(/[^\D]/, "").upcase
-    return (@@ys.index(letters)+1).to_i
+    (@@ys.index(position.gsub(/[^\D]/, "").upcase)+1).to_i
   end
 
 end
