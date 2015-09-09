@@ -4,6 +4,7 @@ class Grid
   def initialize
     @ships = []
     @positions = []
+    @hits = []
   end
 
   def has_ship_on?(x, y)
@@ -32,13 +33,19 @@ class Grid
     puts "    1   2   3   4   5   6   7   8   9   10"
     puts "  -----------------------------------------"
 
-    10.times do |i|
-      output_row = "#{letters[i]} |"
+    10.times do |y|
+      output_row = "#{letters[y]} |"
       #This stuff happens once per row
       # game_block = "|   "
-      10.times do
-        output_row += "   |"
+      10.times do |x|
+        if @hits.include?([x+1, y+1])
+          output_row += " X |"
+        elsif self.has_ship_on?(x+1, y+1)
+          output_row += " O |"
+        else
+          output_row += "   |"
         #This stuff happens once per position
+        end
 
       end
       puts output_row
