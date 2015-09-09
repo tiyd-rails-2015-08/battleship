@@ -2,16 +2,11 @@ class Grid
 
   def initialize
     position_objects_array = Array.new
-    10.times do
-      fcounter = 1
-      10.times do
-        counter =1
-        position_objects_array = Position.new(fcounter, counter)
-        counter +=
+    10.times do |c|
+      10.times do |d|
+        position_objects_array = Position.new(c, d)
       end
-      counter +=
     end
-  end
 
   def get_user_input
     gets.chomp
@@ -46,8 +41,8 @@ J |   |   |   |   |   |   |   |   |   |   |
 
     # search through Array of position objects and
     # if a position object in the array has .number1 == number1 && .number2 == number2 return true
-    else false
-    end
+
   end
 
+end
 end
