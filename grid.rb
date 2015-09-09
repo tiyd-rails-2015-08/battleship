@@ -55,8 +55,30 @@ class Grid
     end
   end
 
+  def sunk?()
+    grid_occupied = false
+    #above prevents against empty game saying you won!
+    (1..100).each do |i|
+      if @locations[i].occupied
+        grid_occupied = true
+        return false unless @locations[i].fired_upon
+      end
+    end
+    grid_occupied
+    #above means that if the grid is empty, you didn't win!
+  end
+
+  def x_of(grid_spot)
+    grid_spot[1..-1].to_i
+  end
+
+  def y_of(grid_spot)
+    map = {A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9, J: 10}
+    map[grid_spot[0].to_sym]
+  end
+
   def display()
-    #outputs game grid to the user, define empty grid
+    #outputs game grid to the user
     y = 0
     print " "
     (1..10).each do |i|
@@ -71,7 +93,14 @@ class Grid
       y += 1
       (1..10).each do |x|
       #while printing the below, check for status of positions
-        has_ship_on?(x, y) ? (print "| O ") : (print "|   ")
+#        has_ship_on?(x, y) ? (print "| O ") : (print "|   ")
+        if (has_ship_on?(x, y) && @locations[get_position(x,y)].fired_upon == false)
+          (print "| O ")
+        elsif (has_ship_on?(x, y) && @locations[get_position(x,y)].fired_upon == true)
+          (print "| X ")
+        else
+          (print "|   ")
+        end
       end
       puts "|"
     end
@@ -79,43 +108,4 @@ class Grid
     puts "-"*41
   end
 
-#   def empty_grid
-#   #TO DO: change into a loop inside a loop to display the below
-#     %Q{    1   2   3   4   5   6   7   8   9   10
-#   -----------------------------------------
-# A |   |   |   |   |   |   |   |   |   |   |
-# B |   |   |   |   |   |   |   |   |   |   |
-# C |   |   |   |   |   |   |   |   |   |   |
-# D |   |   |   |   |   |   |   |   |   |   |
-# E |   |   |   |   |   |   |   |   |   |   |
-# F |   |   |   |   |   |   |   |   |   |   |
-# G |   |   |   |   |   |   |   |   |   |   |
-# H |   |   |   |   |   |   |   |   |   |   |
-# I |   |   |   |   |   |   |   |   |   |   |
-# J |   |   |   |   |   |   |   |   |   |   |
-#   -----------------------------------------
-# }
-#   end
-
 end
-
-#
-
-#
-#   def sunk?()
-#     empty_grid = true
-#     (1..100).each do |i|
-#       if @locations[i].occupied
-#         @locations[i].fired_at ? () : (return false)
-#         empty_grid = false
-#       end
-#     end
-#     !empty_grid
-#   end
-#
-#   def x_of
-#   end
-#
-#   def y_of
-#   end
-#

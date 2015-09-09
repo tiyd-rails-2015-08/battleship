@@ -4,8 +4,12 @@ require './ship'
 require './grid'
 require './position'
 
-grid = Grid.new
+def get_user_input
+  gets.chomp
+end
 
-grid.place_ship(Ship.new(2), 3, 6, true)
+ships = []
+ships << Ship.new(2)
+ships << Ship.new(5)
 
-puts grid.display
+puts "#{@name}, where would you like to place a ship of length #{@ships[0].@length}?"
