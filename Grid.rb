@@ -136,10 +136,18 @@ class Grid
   end
 
   def sunk?
-    @ships.each do |ship|
-      return true if ship.sunk?
-    end
-    return false
+    return false unless @ships.any? { |ship| ship.sunk? }
+    return true
+  end
+
+  def x_of(position)
+    numbers = position.gsub(/[^\d]/, "").to_i
+    return numbers
+  end
+
+  def y_of(position)
+    letters = position.gsub(/[^\D]/, "").upcase
+    return (@@ys.index(letters)+1).to_i
   end
 
 end

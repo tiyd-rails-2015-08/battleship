@@ -1,8 +1,7 @@
-require './Player'
-require './HumanPlayer'
-require './ComputerPlayer'
-require './Grid'
-require './Ship'
+require './human_player'
+require './computer_player'
+require './grid'
+require './ship'
 
 class Game
   attr_accessor :shiplengths

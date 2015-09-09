@@ -4,6 +4,7 @@ class Player
 
   def initialize(name)
     @name = name
+    @grid = Grid.new()
   end
 
   def place_ships(array_of_ships)
