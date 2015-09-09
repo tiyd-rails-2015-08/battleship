@@ -31,6 +31,22 @@ class Grid
     @ships << ship
   end
 
+  # def fire_at(x,y)
+  #   if @shots_fired.include?([x,y])
+  #     return false
+  #   elsif !has_ship_on?(x,y)
+  #     return false
+  #   else
+  #     @shots_fired << [x,y]
+  #     return true
+  #   end
+  # end
+  def fire_at(x,y)
+    if has_ship_on?(x,y) && !@hits.include?([x,y])
+      @hits << [x,y]
+    end
+  end
+
   def display
 
     letters = ["A","B","C","D","E","F","G","H","I","J"]
@@ -52,33 +68,6 @@ class Grid
     puts "  -----------------------------------------"
 
   end
-
-  def fire_at(x,y)
-    if @shots_fired.include?([x,y])
-      return false
-    elsif !has_ship_on?(x,y)
-      return false
-    else
-      @shots_fired << [x,y]
-      return true
-    end
-  end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
