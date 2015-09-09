@@ -87,7 +87,15 @@ class Grid
   end
 
   def fire_at(x, y)
-    false if !has_ship_on?(x, y)
+    if !has_ship_on?(x, y)
+      return false
+    elsif
+      @ships.each do |i|
+        @ships.include?(i.covers?(x, y))
+      end
+      return true
+    else
+    end
   end
 
 end
