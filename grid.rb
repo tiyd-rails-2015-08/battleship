@@ -4,6 +4,7 @@ class Grid
   def initialize
     @ships = []
     @hits = []
+    @fire_at = []
   end
 
   def has_ship_on?(x,y)
@@ -53,8 +54,14 @@ class Grid
   end
 
   def fire_at(x,y)
-
+    if has_ship_on?(x,y)
+      return true
+    else
+      return false
+    end
   end
+
+
 
 
 
