@@ -181,6 +181,8 @@ J |   |   |   |   |   |   |   |   |   |   |
     refute grid.has_ship_on?(7, 3)
     refute grid.has_ship_on?(5, 4)
   end
+end
+=begin
 
   # Don't forget on this next one that giving the ship coordinates and placing
   # it on the grid are two separate steps.  You can do the first before knowing
@@ -692,3 +694,5 @@ J |   |   |   |   |   |   |   |   |   |   |
 
 
 end
+
+=end
