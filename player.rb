@@ -1,4 +1,5 @@
 class Player
+  attr_reader :name
   def initialize
   end
 end
@@ -19,9 +20,13 @@ end
 
 class ComputerPlayer < Player
   def initialize
-  end
-
-  def name
     @name = "HAL 9000"
   end
 end
+
+# optional approach...
+# class ComputerPlayer < player
+#   def name
+#     "HAL 9000"
+#   end
+# end

@@ -3,6 +3,7 @@ require 'minitest/pride'
 
 #Note: This line is going to fail first.
 require './battleship.rb'
+require './practice.rb'
 
 $mock_inputs = []
 def get_user_input
@@ -56,6 +57,7 @@ class BattleshipTest < Minitest::Test
   def test_08_ship_can_be_placed_across
     ship = Ship.new(4)
     assert ship.place(2, 1, true)
+
 
     assert ship.covers?(2, 1)
     assert ship.covers?(3, 1)
