@@ -23,8 +23,6 @@ class Grid
 #   end
 
   def display
-    # puts empty_grid
-    # We can get rid of empty_grid later.
     y = 0
     puts %Q{    1   2   3   4   5   6   7   8   9   10
   -----------------------------------------}
@@ -86,6 +84,10 @@ class Grid
       return true if ship.covers?(x, y)
     end
     false
+  end
+
+  def fire_at(x, y)
+    false if !has_ship_on?(x, y)
   end
 
 end

@@ -37,8 +37,9 @@ class Ship
   end
 
   def fire_at(x, y)
+    # Checking if the coordinate x, y can be hit.  If true, it adds coordinate to the @hit array.
     # Pushes x, y coordinates into @hit array if covers? the coordinates has a ship on it is (true).
-    if covers?(x, y) && !@hit.include?([x, y])
+  if covers?(x, y) && !@hit.include?([x, y])
       @hit << [x, y]
     end
   end
