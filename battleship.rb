@@ -41,24 +41,40 @@ class Ship
       false
     end
   end
-  #
-  # def positions
-  #
-  #
-  # def covers?
-  #   @covers?
-  # end
-  #
-  # def covers?(x, y)
-  #   if orientation = true
-  #     (x...x+@length).each do |i|
-  #       Position.new(i, y)
-  #     end
-  #   else
-  #     (y...y+@length).each do |i|
-  #       Position.new(x, i)
-  #     end
-  #   end
-  # end
+
+  def positions
+    i = 0
+    @positions = []
+    if place(orientation) == true
+      until self.length == i do
+        @positions[i] = Position.new(x, y)
+        i += 1
+        y += 1
+      end
+    else
+      until self.length == i do
+        @positions[i] = Position.new(x, y)
+        i += 1
+        y += 1
+      end
+    end
+  end
+
+  def covers?(x, y)
+    check = [x, y].to_s
+    @positions.to_s.include(covers)
+  end
+
+  def covers?(x, y)
+    if orientation = true
+      (x...x+@length).each do |i|
+        Position.new(i, y)
+      end
+    else
+      (y...y+@length).each do |i|
+        Position.new(x, i)
+      end
+    end
+  end
 
 end
