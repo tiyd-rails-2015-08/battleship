@@ -3,6 +3,7 @@ class Grid
 
   def initialize
     @ships = []
+    @ship_coords = []
   end
 
 #   def empty_grid
@@ -89,13 +90,20 @@ class Grid
   def fire_at(x, y)
     if !has_ship_on?(x, y)
       return false
+    elsif has_ship_on?(x, y) && @ship_coords.include?([x, y])
+      return false
     elsif
       @ships.each do |i|
         @ships.include?(i.covers?(x, y))
       end
+      @ship_coords << [x, y]
       return true
     else
     end
+  end
+
+  def sunk?
+
   end
 
 end
