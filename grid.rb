@@ -1,6 +1,9 @@
+require './ship'
+
 class Grid
   def initialize
     @ships = []
+    @hits = []
   end
 
   def has_ship_on?(x,y)
@@ -11,37 +14,64 @@ class Grid
   end
 
   def place_ship(ship, x, y, across)
-    ship.place(x, y, across)
-    @ships << ship
+    ship.place(x,y,across)
 
-    # if has_ship_on?(x,y)
-    #   puts "A ship is already placed!"
-    # else
+    # unless @ships.any? { |s| @ships.overlaps_with?(ship)}
     #   @ships << ship
+    # end
 
-  end
-
-
+    @ships.each do |s|
+      if ship.overlaps_with?(s)
+        return false
+      else
+        true
+      end
+    end
+    @ships << ship
   end
 
   def display
-    puts empty_grid
+
+    letters = ["A","B","C","D","E","F","G","H","I","J"]
+  puts "    1   2   3   4   5   6   7   8   9   10"
+  puts "  -----------------------------------------"
+    (1..10).each do |y|
+      output_row="#{letters[y-1]} |"
+      (1..10).each do |x|
+        if @hits.include?([x,y])
+          output_row += " X |"
+        elsif self.has_ship_on?(x,y)
+          output_row += " O |"
+        else
+          output_row += "   |"
+        end
+      end
+      puts output_row
+    end
+    puts "  -----------------------------------------"
+
   end
 
-  def empty_grid
-    %Q{    1   2   3   4   5   6   7   8   9   10
-  -----------------------------------------
-A |   |   |   |   |   |   |   |   |   |   |
-B |   |   |   |   |   |   |   |   |   |   |
-C |   |   |   |   |   |   |   |   |   |   |
-D |   |   |   |   |   |   |   |   |   |   |
-E |   |   |   |   |   |   |   |   |   |   |
-F |   |   |   |   |   |   |   |   |   |   |
-G |   |   |   |   |   |   |   |   |   |   |
-H |   |   |   |   |   |   |   |   |   |   |
-I |   |   |   |   |   |   |   |   |   |   |
-J |   |   |   |   |   |   |   |   |   |   |
-  -----------------------------------------
-}
+  def fire_at(x,y)
+
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
