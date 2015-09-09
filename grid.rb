@@ -33,14 +33,14 @@ J |   |   |   |   |   |   |   |   |   |   |
     puts empty_grid
   end
 
-  def place_ship(ship_object, number1, number2, x = false)
+  def place_ship(ship_object, x, y, j = false)
 
   end
 
-  def has_ship_on?(number1, number2)
-
+  def has_ship_on?(x, y)
+    position_objects_array.each
     # search through Array of position objects and
-    # if a position object in the array has .number1 == number1 && .number2 == number2 return true
+    # if a position object in the array has .x == x && .y == y return true
 
   end
 

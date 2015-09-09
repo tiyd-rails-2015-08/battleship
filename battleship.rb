@@ -16,13 +16,3 @@ require './position.rb'
 # puts "Enter coordinates you want to bomb"
 #   input = get_user_input
 #   grid.has_ship_on?(input)
-
-
-
-position_objects_array = Array.new
-10.times do |c|
-  10.times do |d|
-    position_objects_array = Position.new(c, d)
-  end
-end
-puts position_objects_array

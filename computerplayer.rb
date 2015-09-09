@@ -6,5 +6,4 @@ class ComputerPlayer < Player
    @name = "HAL 9000"
  end
 
-
 end
