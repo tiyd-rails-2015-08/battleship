@@ -54,7 +54,7 @@ class Grid
       @board[self.grid_value(pos[0],pos[1])] = "O"
     end
     @ships << ship
-    return true if ship.place(x, y, across)
+    ship.place(x, y, across)
   end
 
   def has_ship_on?(x,y)
@@ -111,15 +111,12 @@ class Grid
   def fire_at(x,y)
     position = self.grid_value(x,y)
     return false unless @board.has_key?(position)
-    # Record shots,
-    @shots_fired << position
-    puts "Firing at #{position}"
 
-    # if they're repeats,
-    return false if @shots_fired.include?(position)
+    # Record shots, even if they're repeats,
+    @shots_fired << position && (return false) if @shots_fired.include?(position)
+    @shots_fired << position
 
     if self.has_ship_on?(x,y)
-      puts "Hit at #{position}"
       # hits,
       @board[position] = "X"
 
@@ -132,7 +129,6 @@ class Grid
       shot_ship.fire_at(x,y)
       return true
     else
-      puts "Miss at #{position}"
       # and misses.
       return false
     end
