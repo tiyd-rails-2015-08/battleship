@@ -46,10 +46,29 @@ class Grid
     puts "  -----------------------------------------"
   end
 
+  def fire_at(x, y)
+    if has_ship_on?(x, y) && !@hits.include?([x, y])
+      @hits << [x, y]
+    end
+  end
+
+  def sunk?
+  if @ships.empty?
+    return false
+  else
+    @ships.each do |ship|
+      if ship.sunk?
+        @ships.delete(ship)
+      end
+    end
+    if @ships.empty?
+      return true
+    else
+      return false
+    end
+  
 end
 
-#10.times do
-  #if ship is there
-  #  print " O |"
-  #else
-#  print "   |"
+  end
+
+end
