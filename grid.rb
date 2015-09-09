@@ -6,23 +6,6 @@ class Grid
     @ship_coords = []
   end
 
-#   def empty_grid
-#     %Q{    1   2   3   4   5   6   7   8   9   10
-#   -----------------------------------------
-# A |   |   |   |   |   |   |   |   |   |   |
-# B |   |   |   |   |   |   |   |   |   |   |
-# C |   |   |   |   |   |   |   |   |   |   |
-# D |   |   |   |   |   |   |   |   |   |   |
-# E |   |   |   |   |   |   |   |   |   |   |
-# F |   |   |   |   |   |   |   |   |   |   |
-# G |   |   |   |   |   |   |   |   |   |   |
-# H |   |   |   |   |   |   |   |   |   |   |
-# I |   |   |   |   |   |   |   |   |   |   |
-# J |   |   |   |   |   |   |   |   |   |   |
-#   -----------------------------------------
-# }
-#   end
-
   def display
     y = 0
     puts %Q{    1   2   3   4   5   6   7   8   9   10
@@ -81,14 +64,9 @@ class Grid
   end
 
   def sunk?
+    return false if @ships.length == 0
     # Loops over all ships to check if sunk? method returns true.
-    @ships.each do |ship|
-      if ship.sunk?
-        return true
-      else
-      end
-    end
-    false
+    @ships.reject(&:sunk?).length == 0 # return true when all ships are sunk
   end
 
   def x_of(input)
