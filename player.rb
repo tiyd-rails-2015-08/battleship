@@ -1,13 +1,16 @@
 #require ArgumentError < StandardError
 class Player
-  def initialize (name)
+  def initialize (x)
     #@name = name
   end
 end
 
 class HumanPlayer < Player
+ def initialize(name = "Dave")
+   @name = name
+ end
  def name
-    "Alice"
+    @name
  end
 end
 
@@ -16,14 +19,5 @@ class ComputerPlayer < Player
   end
   def name
     "HAL 9000".upcase
-  end
-end
-
-class Ship
-  def initialize (x)
-
-  end
-  def length
-    4
   end
 end
