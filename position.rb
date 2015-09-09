@@ -1,7 +1,5 @@
 class Position
   def initialize(col, row)
-    @col = col
-    @row = row
     @positions = [col, row]
   end
 

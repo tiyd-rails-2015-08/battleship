@@ -10,47 +10,46 @@ class Ship
   end
 
   def col_start
-    @col
+    @col_start
   end
 
   def row_start
-    @row
+    @row_start
   end
 
   def place(col_start, row_start, orientation)
     @positions = []
+    puts @positions.to_s
     @col_start = col_start
     @row_start = row_start
     count = 0
     #going across
     if orientation == true
       while count < @length
-        @positions << Position.new((@col_start + count), @row_start)
+        x = @col_start + count
+        y = @row_start
+        @positions << Position.new(x, y)
         count += 1
-        puts @positions.to_s
       end
     #going down
     else
       while count < @length
-        @positions << Position.new(@col_start , @row_start + count)
+        x = @col_start
+        y = @row_start + count
+        @positions << Position.new(x, y)
         count += 1
       end
     end
-    puts @positions[1]
-    if @length = @positions.length
-      return true
-    end
+    return true while @positions.length <= @length
+    puts @positions.length.to_s
   end
 
   def covers?(col, row)
-    @col = col
-    @row = row
-    covers = [@col, @row].to_s
-    if @positions.to_s.include?(covers)
-      return true
-    end
+    covers = [col, row].to_s
+    @positions.to_s.include?(covers)
   end
 
+  def overlaps_with?(another_ship)
+    true if another_ship.covers?(@positions.to_s.any?)
+  end
 end
-
-ship = Ship.new(4).place(2, 1, true)
