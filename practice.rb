@@ -44,4 +44,8 @@ class Ship
     end
     false
   end
+
+  def fire_at(x, y)
+    covers?(x, y)
+  end
 end
