@@ -1,3 +1,4 @@
-require './player.rb'
+require './player'
 #require './ship.rb'
-require './practice.rb'
+require './practice'
+require './grid'
