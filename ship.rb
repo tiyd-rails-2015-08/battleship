@@ -10,9 +10,15 @@ class Ship
     @coverage = []
   end
 
+  def find_coverage(x, y, across)
+    potential_coverage = []
+    across ? (x...x+@length).each { |xpos| potential_coverage << [xpos, y] } : (y...y+@length).each { |ypos| potential_coverage << [x, ypos] }
+    return potential_coverage
+  end
+
   def place(x, y, across)
     return false unless @coverage.empty?
-    across ? (x...x+@length).each { |xpos| @coverage << [xpos, y] } : (y...y+@length).each { |ypos| @coverage << [x, ypos] }
+    @coverage = find_coverage(x, y, across)
     #puts "Coverage: #{@coverage}, #{@coverage == nil}"
     true
   end
