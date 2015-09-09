@@ -8,6 +8,7 @@ class Ship
   def initialize(length)
     @length = length
     @positions = []
+    @hit = 0
   end
 
   # def place(x, y, across)
@@ -46,6 +47,12 @@ class Ship
   end
 
   def fire_at(x, y)
-    covers?(x, y)
+    if covers?(x, y)
+      @hit += 1
+    end
+  end
+
+  def sunk?
+    @hit == @length
   end
 end
