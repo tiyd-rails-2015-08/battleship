@@ -45,6 +45,6 @@ class Ship
   end
 
   def sunk?
-    @hit.length == @length
+    @hit.length >= @length
   end
 end

@@ -68,7 +68,7 @@ class Grid
   def fire_at(x, y)
     if !has_ship_on?(x, y)
       return false
-    elsif has_ship_on?(x, y) && @ship_coords.include?([x, y])
+    elsif @ship_coords.include?([x, y])
       return false
     elsif
       @ships.each do |i|
@@ -81,6 +81,21 @@ class Grid
   end
 
   def sunk?
+    # Loops over all ships to check if sunk? method returns true.
+    @ships.each do |ship|
+      if ship.sunk?
+        return true
+      else
+      end
+    end
+    false
+  end
+
+  def x_of(input)
+
+  end
+
+  def y_of(input)
 
   end
 
