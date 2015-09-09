@@ -7,10 +7,6 @@ class Position
   def position
     @position
   end
-
-  def is_hit
-    @hit
-  end
 end
 #
 #

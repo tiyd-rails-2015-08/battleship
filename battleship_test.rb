@@ -182,8 +182,8 @@ J |   |   |   |   |   |   |   |   |   |   |
     refute grid.has_ship_on?(7, 3)
     refute grid.has_ship_on?(5, 4)
   end
-end
-=begin
+
+
   # Don't forget on this next one that giving the ship coordinates and placing
   # it on the grid are two separate steps.  You can do the first before knowing
   # whether it's possible to do the second.
@@ -364,8 +364,8 @@ J |   |   |   |   |   |   |   |   |   |   |
     assert player.grid.has_ship_on?(1, 6)
     refute player.grid.has_ship_on?(1, 1)
   end
-
-
+end
+=begin
   # This is the first test that involves you coming up with a strategy. The
   # computer player will need to put the ships somewhere.  Again, it can be as
   # dumb as you want, but the ships can't overlap.
