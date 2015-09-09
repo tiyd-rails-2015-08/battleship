@@ -3,6 +3,7 @@ require './ship.rb'
 class Grid
   def initialize
     @ships = []
+    @hits = []
   end
 
   def has_ship_on?(x, y)
@@ -23,20 +24,24 @@ class Grid
   end
 
   def display
-    letters = ["A |", "B |", "C |", "D |", "E |", "F |", "G |", "H |", "I |", "J |"]
+    letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     j = "   |"
     puts "    1   2   3   4   5   6   7   8   9   10"
     puts "  -----------------------------------------"
 
-    10.times do |i|
-      print letters[i]
-      10.times do
-        #if ship is there
-        #  print " O |"
-        #else
-        print j
+    10.times do |y|
+      output_row = "#{letters[y]} |"
+
+      10.times do |x|
+        if @hits.include?([x+1, y+1])
+          output_row += " X |"
+        elsif self.has_ship_on?(x+1, y+1)
+          output_row += " O |"
+        else
+          output_row += "   |"
+        end
       end
-      puts ""
+      puts output_row
     end
     puts "  -----------------------------------------"
   end

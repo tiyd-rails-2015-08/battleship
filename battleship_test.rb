@@ -362,7 +362,7 @@ J |   |   |   |   |   |   |   |   |   |   |
     assert player.grid.has_ship_on?(1, 6)
     refute player.grid.has_ship_on?(1, 1)
   end
-
+=begin
 
   # This is the first test that involves you coming up with a strategy. The
   # computer player will need to put the ships somewhere.  Again, it can be as
@@ -690,5 +690,5 @@ J |   |   |   |   |   |   |   |   |   |   |
   # require './battleship'
   # Game.new(HumanPlayer.new("Your Name"), ComputerPlayer.new).play
 
-
+=end
 end
