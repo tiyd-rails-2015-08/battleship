@@ -22,8 +22,22 @@ class Ship
     @horizontal ? (@x..@x+@length-1).include?(x) && @y == y : (@y..@y+@length-1).include?(y) && @x == x
   end
 
-  def overlaps_with?(ship)
-
+  def overlaps_with?(other_ship)
+    #Checks if two ships overlap
+    if @horizontal
+      (@x..@x+length-1).each do |i|
+        if other_ship.covers?(i, @y)
+          return true
+        end
+      end
+    else
+      (@y..@y+length-1).each do |i|
+        if other_ship.covers?(@x, i)
+          return true
+        end
+      end
+    end
+    false
   end
 
   def fire_at(x, y)

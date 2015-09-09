@@ -1,15 +1,11 @@
 class Grid
 
   def initialize
-    position_objects_array = Array.new
-    10.times do |c|
-      10.times do |d|
-        position_objects_array = Position.new(c, d)
-      end
-    end
-
-  def get_user_input
-    gets.chomp
+    #Creates new array with 100 Position objects
+     @locations = Array.new(100)
+       (1..100).each do |i|
+         @locations[i] = Position.new
+       end
   end
 
   def empty_grid
@@ -44,5 +40,4 @@ J |   |   |   |   |   |   |   |   |   |   |
 
   end
 
-end
 end

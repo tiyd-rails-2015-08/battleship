@@ -134,8 +134,8 @@ class BattleshipTest < Minitest::Test
     refute ship.sunk?
   end
 
-  # One last note before we move onto the grid.  The best solution to the above
-  # tests would be to use `covers?` inside `fire_at`.  For this to be really
+  # One last note before we m``ove onto the grid.  The best solution to the above
+  # tests would be to use `covers?` inside`` `fire_at`.  For this to be really
   # slick, though, you'll want `covers?` to not just return a true or a false.
   # Make it wicked cool by having it return the specific position object
   # that was being fired on.  Then you can immediately mark it as hit without
