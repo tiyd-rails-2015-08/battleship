@@ -1,20 +1,13 @@
+class Position
+  def initialize(col, row)
+    @col = col
+    @row = row
+    @positions = [col, row]
+  end
 
+  def is_occupied?
+  end
 
-
-
-  # def col
-  #   @col
-  # end
-  #
-  # def row
-  #   @row
-  # end
-
-
-
-
-#
-# for (0..(ship.length-1)) do |i|
-#   ship.col_start
-#   shipt.row_start
-# end
+  def hit?
+  end
+end
