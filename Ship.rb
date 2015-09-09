@@ -10,8 +10,8 @@ class Ship
     @shots_received = []
   end
 
-  def index_value(x,y)
-    return "#{@@ys[y-1]}#{x}"
+  def grid_value(x,y)
+    return "#{@@ys[y-1]}#{x}".to_sym
   end
 
   def place(x, y, across)
@@ -19,10 +19,10 @@ class Ship
     @coverage = []
     if across
       coverage_x = (x..x+@length-1).to_a
-      coverage_x.each { |xpos| @coverage.push(self.index_value(xpos, y)) }
+      coverage_x.each { |xpos| @coverage.push(self.grid_value(xpos, y)) }
     else
       coverage_y = (y..y+@length-1).to_a
-      coverage_y.each { |ypos| @coverage.push(self.index_value(x, ypos)) }
+      coverage_y.each { |ypos| @coverage.push(self.grid_value(x, ypos)) }
     end
     #puts "Coverage: #{@coverage}, #{@coverage == nil}"
     return true
@@ -30,7 +30,7 @@ class Ship
 
   def covers?(x,y)
     #puts "Checking [#{x}, #{y}]"
-    return true if @coverage.include?(self.index_value(x,y))
+    return true if @coverage.include?(self.grid_value(x,y))
     return false
   end
 
@@ -44,7 +44,7 @@ class Ship
   end
 
   def fire_at(x,y)
-    shot = index_value(x,y)
+    shot = grid_value(x,y)
     if @coverage.include?(shot)
       @shots_received << shot unless @shots_received.include?(shot)
       return true
