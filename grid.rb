@@ -3,11 +3,6 @@ class Grid
 
   def initialize
     @ships = []
-    #Creates new array with 100 Position objects
-    #  @locations = Array.new(100)
-    #    (1..100).each do |i|
-    #      @locations[i] = Position.new
-    #    end
   end
 
   def empty_grid
@@ -60,20 +55,12 @@ J |   |   |   |   |   |   |   |   |   |   |
   #     end
   # end
 
-  # def get_position(x, y)
-  #   #Converts x,y coordinates to corresponding array index
-  #   x + y * 10
-  # end
-
   def has_ship_on?(x, y)
     # Loops over all ships to check if the coordinate (x, y) is in @positions array of any of them
     @ships.each do |ship|
       return true if ship.covers?(x, y)
     end
     false
-    #Checks if position is occupied
-    # @locations[get_position(x,y)].occupied
-    # false
   end
 
 end
