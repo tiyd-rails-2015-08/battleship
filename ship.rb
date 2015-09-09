@@ -60,8 +60,4 @@ class Ship
      @length == @hit_counter
   end
 
-  def has_ship_on?(x, y)
-
-  end
-
 end
