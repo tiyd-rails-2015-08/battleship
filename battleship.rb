@@ -26,19 +26,29 @@ class Ship
     @length = length
   end
 
-  def place(x, y, orientation)
-    if orientation == true
-      true
-    else
-      false
+  #getting 'undefined variable x' error in my place method.
+  #might be an order of operations problem? Not sure how else to put
+  #this together.
+
+  def place(horizontal, vertical, orientation)
+    place = [x, y]
+    hits = 0
+      if orientation == true
+        true
+      else
+        false
+      end
+    end
+
+    def hit
+      @hit
     end
   end
 
-  def covers(x, y, orientation)
-    if orientation == true
-      x + 3
-    elsif orientation == false
-      y + 3
-    end
+  def positions
+    @positions
   end
+
+  def covers?(x, y)
+
 end
