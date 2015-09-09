@@ -53,6 +53,10 @@ class Grid
     end
     puts "  -----------------------------------------"
   end
+
+  def fire_at(x, y)
+    false unless has_ship_on?(x, y)
+  end
 end
 
 x_grid = Grid.new
