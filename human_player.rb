@@ -25,14 +25,10 @@ class HumanPlayer < Player
       across == "across" ? (across = true) : (across = false)
       if @grid.place_ship(ship, @grid.x_of(position), @grid.y_of(position), across) == false
         puts "Unfortunately, that ship overlaps with one of your other ships.  Please try again."
+        redo
       end
     end
   end
-
-
-
-
-
 
 
 end
