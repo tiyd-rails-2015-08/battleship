@@ -9,6 +9,7 @@ class Ship
   end
 
   def place(x, y, horizontal)
+    # Checking for the place you want to put the ship to see if it is open.
     # This method returns true or false for if the coordinates are in the positions array.
     return false unless @positions.empty?
     if horizontal
@@ -23,6 +24,8 @@ class Ship
   end
 
   def covers?(x, y)
+    # This method returns true or false for if the ship is covering these postions in the @positions array.
+    # If the place method returns true, they are covering these positions (the coordinates have been stored)
     @positions.include?([x, y])
   end
 

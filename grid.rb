@@ -27,8 +27,16 @@ J |   |   |   |   |   |   |   |   |   |   |
   end
 
   def place_ship(ship, x, y, horizontal)
-      ship.place(x, y, horizontal)
+    ship.place(x, y, horizontal)
+    overlap = false
+    @ships.each do |s|
+        if ship.overlaps_with?(s)
+          overlap = true
+        end
+      end
+    unless overlap
       @ships << ship
+    end
   end
 
   # def place_ship (ship, x, y, horizontal)

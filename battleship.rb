@@ -7,6 +7,7 @@ require './computerplayer.rb'
 require './ship.rb'
 require './grid.rb'
 require './position.rb'
+require 'byebug'
 
 # already_placed = Array.new
 # puts "Let's play Battleship!"
