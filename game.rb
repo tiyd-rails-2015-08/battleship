@@ -13,7 +13,7 @@ class Game
     @player_two = player_two
     @ship_lengths = ship_lengths
     @salvo = salvo
-    @player_one_turn = true #[false,true].sample
+    @player_one_turn = true # maybe later we'll flip a coin, [false,true].sample
   end
 
   def welcome
@@ -47,24 +47,27 @@ class Game
       @player_one_turn = true
     end
 
-
-    guess = shooter.call_shot
-    x = victim.grid.x_of(guess)
-    y = victim.grid.y_of(guess)
-    if victim.grid.fire_at(x, y)
-      puts("Hit!")
-      shooter.shots_fired.last.hit = true
+    if salvo
+      # TODO
+      # Difference is to have a shot for every ship on the grid during each turn.
+      # Call your shots first, and then determine if they're hits or misses.
     else
-      puts("Miss!")
+      guess = shooter.call_shot
+      x = victim.grid.x_of(guess)
+      y = victim.grid.y_of(guess)
+      if victim.grid.fire_at(x, y)
+        puts("Hit!")
+        shooter.shots_fired.last.hit = true
+      else
+        puts("Miss!")
+      end
     end
+
   end
 
   def play
     self.welcome
-    loop do
-      break if @player_one.grid.sunk? || @player_two.grid.sunk?
-      self.take_turn
-    end
+    self.take_turn until (@player_one.grid.sunk? || @player_two.grid.sunk?)
     @player_one.grid.sunk? ? puts("Congratulations, #{@player_two.name}!") : puts("Congratulations, #{@player_one.name}!")
   end
 

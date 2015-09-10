@@ -5,14 +5,16 @@ end
 
 
 class Grid
-  @@ys = ('A'..'ZZ').to_a
   attr_accessor :size
   attr_accessor :ships
   attr_accessor :board
-  attr_accessor :shots_fired
+
+  def ys
+    return ('A'..'ZZ').to_a
+  end
 
   def grid_value(x,y)
-    return "#{@@ys[y-1]}#{x}".to_sym
+    return "#{self.ys[y-1]}#{x}".to_sym
   end
 
   def initialize(size = [10,10])
@@ -26,35 +28,31 @@ class Grid
       raise InvalidGridSizeError, "Cannot create a grid of #{size} size."
     end
     @board = {}
-    ('A'..@@ys[size[1]-1]).each do |letter|
+    ('A'..self.ys[size[1]-1]).each do |letter|
       (1..size[0]).each do |number|
         @board["#{letter}#{number}".to_sym] = " "
       end
     end
     @ships = []
-    @shots_fired = []
   end
 
   def place_ship(ship, x, y, across)
-    #raise InvalidShipPlacement, "Ship already placed on grid" if @ships.include?(ship)
-    #raise InvalidShipPlacement, "Ship already occupies this spot" if self.has_ship_on?(x, y)
     return false if @ships.include?(ship)
     return false if self.has_ship_on?(x, y)
 
-    potential_coverage = []
-    if across
-      (x..x+ship.length-1).to_a.each { |xpos| potential_coverage << [xpos, y] }
-    else
-      (y..y+ship.length-1).to_a.each { |ypos| potential_coverage << [x, ypos] }
-    end
+    potential_coverage = ship.find_coverage(x, y, across)
+
+    # reject placement if a ship is already on the position.
+    # reject placement if the ship goes off the board.
     potential_coverage.each do |pos|
+      position = self.grid_value(pos[0], pos[1])
       return false if self.has_ship_on?(pos[0], pos[1])
+      return false unless @board.has_key?(position)
     end
-    potential_coverage.each do |pos|
-      @board[self.grid_value(pos[0],pos[1])] = "O"
-    end
-    @ships << ship
+
     ship.place(x, y, across)
+    potential_coverage.each { |pos| @board[grid_value(pos[0],pos[1])] = "O" }
+    @ships << ship
   end
 
   def has_ship_on?(x,y)
@@ -77,7 +75,7 @@ class Grid
 # J |   |   |   |   |   |   |   |   |   |   |
 #   -----------------------------------------
 
-  def display
+  def display(board = @board)
     #First Line
     display = " "
     (1..@size[0]).each do |number|
@@ -90,12 +88,12 @@ class Grid
     display.concat("-").concat("\n")
 
     #Add a row for each y axis value
-    ('A'..@@ys[@size[1]-1]).each do |letter|
+    ('A'..self.ys[@size[1]-1]).each do |letter|
       display.concat("#{letter} |") if letter.length == 1
       display.concat("#{letter}|") if letter.length == 2
       (1..@size[0]).each do |number|
-        position = @board["#{letter}#{number}".to_sym]
-        display.concat(" #{position} |")
+        hole = board["#{letter}#{number}".to_sym]
+        display.concat(" #{hole} |")
       end
       display.concat("\n")
     end
@@ -104,7 +102,6 @@ class Grid
     display.concat("  ")
     (@size[0]*4).times { display.concat("-") }
     display.concat("-")
-
     puts display
   end
 
@@ -112,15 +109,11 @@ class Grid
     position = self.grid_value(x,y)
     return false unless @board.has_key?(position)
 
-    # Record shots, even if they're repeats,
-    @shots_fired << [x,y] && (return false) if @shots_fired.include?([x,y])
-    @shots_fired << [x,y]
-
     if self.has_ship_on?(x,y)
       # hits,
       @board[position] = "X"
 
-       # (tell the ship it received fire.)
+       # tell the ship it received fire.
       shot_ship = nil
       @ships.each do |ship|
         break if shot_ship
@@ -131,20 +124,19 @@ class Grid
       # and misses.
       false
     end
-
   end
 
   def sunk?
-    return false unless @ships.any? { |ship| ship.sunk? }
-    return true
+    return false if @ships.length < 1
+    @ships.all? { |ship| ship.sunk? }
   end
 
   def x_of(position)
-    position.gsub(/[^\d]/, "").to_i
+    return position.to_s.gsub(/[^\d]/, "").to_i
   end
 
   def y_of(position)
-    (@@ys.index(position.gsub(/[^\D]/, "").upcase)+1).to_i
+    return (self.ys.index(position.to_s.gsub(/[^\D]/, "").upcase))+1
   end
 
 end

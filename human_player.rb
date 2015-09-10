@@ -1,10 +1,10 @@
 require './player'
 
 class HumanPlayer < Player
+
   def initialize(name = "Dave")
     @name = name
-    @grid = Grid.new()
-    @ships = []
+    super()
   end
 
   def place_ships(array_of_ship_lengths = [2,3,3,4,5])
@@ -24,6 +24,7 @@ class HumanPlayer < Player
       until !across.nil?
         puts "Across or Down?"
         across_response = get_user_input
+
         across = true if across_response.downcase == "across"
         across = false if across_response.downcase == "down"
         puts "That is an invalid direction." if across.nil?
@@ -47,8 +48,17 @@ class HumanPlayer < Player
 
   def call_shot
     guess = nil
-
-
+    # Loop until I have a valid guess.
+    until guess
+      puts "#{@name}, please enter the coordinates for your next shot (e.g. 'B10'):"
+      guess = get_user_input
+      byebug if guess == "Down"
+      guess.to_s.to_sym
+      !@shots_fired.include?(guess) || guess = nil
+      !@grid.board.has_key?(guess) || guess = nil
+    end
+    @shots_fired.push(Position.new(position: guess))
+    guess.to_s
   end
 
 end
