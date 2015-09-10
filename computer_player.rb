@@ -1,9 +1,10 @@
 require './player'
 
 class ComputerPlayer < Player
-  def initialize
+  def initialize(grid_size = [10,10])
     @name = "HAL 9000"
     @shots = []
+    @grid = Grid.new(grid_size)
     super()
   end
 

@@ -14,7 +14,6 @@ class Player
   attr_accessor :shots_fired
 
   def initialize
-    @grid = Grid.new
     @ships = []
     @shots_fired = []
   end

@@ -60,7 +60,7 @@ class Game
         puts("Miss!")
       end
     end
-    #self.display_status if shooter.class == HumanPlayer
+    self.display_status if shooter.class == HumanPlayer
     @player_one_turn = !@player_one_turn
   end
 
