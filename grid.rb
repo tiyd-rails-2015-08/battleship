@@ -62,6 +62,7 @@ class Grid
   end
 
   def y_of(grid_spot)
+    grid_spot.upcase!
     map = {A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9, J: 10}
     map[grid_spot[0].to_sym]
   end
