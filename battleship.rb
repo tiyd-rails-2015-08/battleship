@@ -1,3 +1,4 @@
 require './player'
-require './practice'
+require './ship'
+require './position'
 require './grid'

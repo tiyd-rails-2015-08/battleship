@@ -1,67 +1,43 @@
-require './position.rb'
-
 class Ship
+  attr_reader :length
   def initialize(length)
     @length = length
-  end
-
-  def length()
-    @length
-  end
-
-  def col_start
-    @col_start
-  end
-
-  def row_start
-    @row_start
-  end
-
-  def place(col_start, row_start, orientation)
-    @ship_occupies = []
     @positions = []
-    @col_start = col_start
-    @row_start = row_start
-    count = 0
-    #going across
-    if orientation == true
-      while count < @length
-        x = @col_start + count
-        y = @row_start
-        @ship_occupies << [x, y]
-        @positions << Position.new(x, y)
-        count += 1
-        #puts @positions.to_s
-        puts @ship_occupies.to_s
+    @hits = []
+  end
+
+  def place(x, y, across)
+    return false unless @positions.empty?
+    if across
+      (x...x+@length).each do |i|
+        @positions << [i, y]
       end
-    #going down
     else
-      while count < @length
-        x = @col_start
-        y = @row_start + count
-        @ship_occupies << [x, y]
-        @positions << Position.new(x, y)
-        count += 1
-        puts @ship_occupies.to_s
+      (y...y+@length).each do |j|
+        @positions << [x, j]
       end
     end
-    return true while @positions.length <= @length
-    puts @positions.length.to_s
+    true
   end
 
-  def covers?(col, row)
-    covers = [col, row].to_s
-    @ship_occupies.to_s.include?(covers)
+  def covers?(x, y)
+    @positions.include?([x, y])
   end
 
-  # def overlaps_with?(another_ship)
-  #   true if ship.to_s.covers?.any? { |x| another_ship.covers?.include?(x) }
-  # end
+  def overlaps_with?(other_ship)
+    @positions.each do |place|
+      return true if other_ship.covers?(place[0],place[1])
+    end
+    false
+  end
+
+  def fire_at(x, y)
+    if covers?(x, y) && !@hits.include?([x, y])
+      @hits << [x, y]
+    end
+  end
+
+  def sunk?
+    @hits.length >= @length
+  end
 end
-
-
-first_ship  = Ship.new(3)
-first_ship.place(2, 1, true)
-puts first_ship.covers?(3, 1)
-puts first_ship.covers?(5, 3)
-second_ship = Ship.new(4)

@@ -1,6 +1,6 @@
 class Position
-  def initialize(col, row)
-    @positions = [col, row]
+  def initialize(x, y)
+    @positions = [x, y]
   end
 
   def is_occupied?

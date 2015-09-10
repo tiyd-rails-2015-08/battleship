@@ -20,20 +20,6 @@ class Grid
     end
   end
 
-  # def display
-  #   puts     %Q{    1   2   3   4   5   6   7   8   9   10
-  # -----------------------------------------}
-    # letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    # 10.times do |y|
-    #   x = "#{letters[i-1]} |"
-    #   (1..10).each do |j|
-    #     x += "   |"
-  #     end
-  #     puts x
-  #   end
-  #   puts "  -----------------------------------------"
-  # end
-
   def display
     puts     "    1   2   3   4   5   6   7   8   9   10"
     puts "  -----------------------------------------"
@@ -54,17 +40,16 @@ class Grid
     puts "  -----------------------------------------"
   end
 
-  # def fire_at(x, y)
-  #   false unless has_ship_on?(x, y)
-  # end
-
   def fire_at(x, y)
     if has_ship_on?(x, y)
+      unless @hits.include?([x, y])
+      @hits << [x, y]
       return true
     else
       false
     end
   end
+end
 end
 
 x_grid = Grid.new
