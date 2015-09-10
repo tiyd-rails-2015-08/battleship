@@ -25,10 +25,11 @@ class Ship
   end
 
   def overlaps_with?(other_ship)
-    @positions.each do |place|
-      return true if other_ship.covers?(place[0],place[1])
-    end
-    false
+    @positions.any? { |place| other_ship.covers?(place[0], place[1]) }
+    # @positions.each |place|
+    #   return true if other_ship.covers?(place[0],place[1])
+    # end
+    # false
   end
 
   def fire_at(x, y)
@@ -39,5 +40,9 @@ class Ship
 
   def sunk?
     @hits.length >= @length
+  end
+
+  def hit_on?(x, y)
+    @hits.include?([x, y])
   end
 end

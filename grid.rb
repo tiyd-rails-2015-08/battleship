@@ -1,22 +1,26 @@
 class Grid
   def initialize
     @ships = []
-    @hits  = []
+
   end
 
   def has_ship_on?(x, y)
     @ships.each do |ship|
-      return true if ship.covers?(x, y)
+      return ship if ship.covers?(x, y)
     end
     false
   end
 
   def place_ship(ship, x, y, across)
     ship.place(x, y, across)
-    unless @ships.any?{ |s| s.overlaps_with?(ship)}
+    overlap = false
+    @ships.each do |s|
+      if ship.overlaps_with? (s)
+        overlap = true
+      end
+    end
+    unless overlap
       @ships << ship
-    else
-      false
     end
   end
 
@@ -24,16 +28,17 @@ class Grid
     puts     "    1   2   3   4   5   6   7   8   9   10"
     puts "  -----------------------------------------"
     letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    10.times do |y|
-      output = "#{letters[y]} |"
-      10.times do |x|
-        if self.has_ship_on?(x+1, y+1)
-          output += " O |"
-        elsif @hits.include?([x+1, y+1])
-          output += " X |"
-        else
-          output += "   |"
-        end
+    (1..10).each do |y|
+      output = "#{letters[y-1]} |"
+      (1..10).each do |x|
+        ship = has_ship_on?(x, y)
+        output << if ship && ship.hit_on?(x, y)
+                    " X |"
+                  elsif ship
+                    " O |"
+                  else
+                    "   |"
+                  end
       end
       puts output
     end
@@ -41,16 +46,16 @@ class Grid
   end
 
   def fire_at(x, y)
-    if has_ship_on?(x, y)
-      unless @hits.include?([x, y])
-      @hits << [x, y]
-      return true
+    ship = has_ship_on?(x, y)
+    if ship
+      ship.fire_at(x, y)
     else
       false
     end
   end
-end
-end
 
-x_grid = Grid.new
-puts x_grid.display
+  def sunk?
+    return false if @ships == []
+    @ships.all? { |s| s.sunk?}
+  end
+end
