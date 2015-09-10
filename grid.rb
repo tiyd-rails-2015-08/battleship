@@ -66,9 +66,9 @@ class Grid
     end
 
     def y_of(grid_square)
-      letter = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-      letter.each_with_index do |l|
-      letter.ord
+      letter = grid_square.slice(0)
+#      grid_square.slice(letter, num)
+      letter.ord - "A".ord+1
     end
 
   private def display_header
