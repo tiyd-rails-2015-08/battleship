@@ -79,12 +79,9 @@ class Grid
     grid_square.slice(1..grid_square.length).to_i
   end
 
-  # def y_of(grid_square)
-  #   grid_square.split(y, x)
-  #     ("A".."J").each do |y|
-  #     column = y-"A".ord + 1
-  #   end
-  #   puts column
-  # end
+  def y_of(grid_square)
+    letter = grid_square.slice(0)
+    letter.ord - "A".ord + 1
+  end
 
 end
