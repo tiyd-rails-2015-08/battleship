@@ -1,3 +1,5 @@
+require './grid.rb'
+
 class Ship
   attr_reader :length
   def initialize(length)
@@ -38,5 +40,9 @@ class Ship
 
   def sunk?
     @hits.length == @length
+  end
+
+  def hit_on?(x, y)
+    @hits.include?([x, y])
   end
 end
