@@ -7,22 +7,22 @@ class Grid
   end
 
   def display
-    y = 0
     puts %Q{    1   2   3   4   5   6   7   8   9   10
   -----------------------------------------}
-    letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    (0..9).each do |row|
-      output = "#{letters[row]} |"
-      (0..9).each do |column|
-        if @ship_coords.include?([column+1, row+1])
-          output += " X |"
-        elsif has_ship_on?(column+1, row+1)
-          output += " O |"
-        else
-          output += "   |"
-        end
+    ("A".."J").each_with_index do |l, i|
+      y = i+1
+      line = l + " |"
+      (1..10).each do |x|
+        ship = has_ship_on?(x, y)
+        line << if ship && ship.hit_on?(x, y)
+                    " X |"
+                elsif has_ship_on?(x, y)
+                    " O |"
+                else
+                    "   |"
+                end
       end
-      puts output
+      puts line
     end
       puts "  -----------------------------------------"
   end
@@ -43,23 +43,17 @@ class Grid
   def has_ship_on?(x, y)
     # Loops over all ships to check if the coordinate (x, y) is in @positions array of any of them
     @ships.each do |ship|
-      return true if ship.covers?(x, y)
+      return ship if ship.covers?(x, y)
     end
     false
   end
 
   def fire_at(x, y)
-    if !has_ship_on?(x, y)
-      return false
-    elsif @ship_coords.include?([x, y])
-      return false
-    elsif
-      @ships.each do |i|
-        @ships.include?(i.covers?(x, y))
-      end
-      @ship_coords << [x, y]
-      return true
+    ship = has_ship_on?(x, y)
+    if ship
+      ship.fire_at(x, y)
     else
+      return false
     end
   end
 

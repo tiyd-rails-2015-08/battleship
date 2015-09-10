@@ -30,16 +30,13 @@ class Ship
   end
 
   def overlaps_with?(other_ship)
-    @positions.each do |place|
-      return true if other_ship.covers?(place[0], place[1])
-    end
-    false
+    @positions.any? { |place| other_ship.covers?(place[0], place[1])}
   end
 
   def fire_at(x, y)
     # Checking if the coordinate x, y can be hit.  If true, it adds coordinate to the @hit array.
     # Pushes x, y coordinates into @hit array if covers? the coordinates has a ship on it is (true).
-  if covers?(x, y) && !@hit.include?([x, y])
+    if covers?(x, y) && !@hit.include?([x, y])
       @hit << [x, y]
     end
   end
@@ -47,4 +44,9 @@ class Ship
   def sunk?
     @positions != [] && @hit.length >= @length
   end
+
+  def hit_on?(x, y)
+      @hit.include?([x, y])
+  end
+
 end
