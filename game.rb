@@ -40,11 +40,9 @@ class Game
     if @player_one_turn
       shooter = @player_one
       victim = @player_two
-      @player_one_turn = false
     else
       shooter = @player_two
       victim = @player_one
-      @player_one_turn = true
     end
 
     if salvo
@@ -62,11 +60,13 @@ class Game
         puts("Miss!")
       end
     end
-
+    #self.display_status if shooter.class == HumanPlayer
+    @player_one_turn = !@player_one_turn
   end
 
   def play
     self.welcome
+    self.place_ships
     self.take_turn until (@player_one.grid.sunk? || @player_two.grid.sunk?)
     @player_one.grid.sunk? ? puts("Congratulations, #{@player_two.name}!") : puts("Congratulations, #{@player_one.name}!")
   end

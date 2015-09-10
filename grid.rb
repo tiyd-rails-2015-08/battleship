@@ -79,29 +79,29 @@ class Grid
     #First Line
     display = " "
     (1..@size[0]).each do |number|
-      display.concat("   #{number}")
+      display << "   #{number}"
     end
-    display.concat("\n  ")
+    display << "\n  "
 
     #Second Line
-    (@size[0]*4).times { display.concat("-") }
-    display.concat("-").concat("\n")
+    (@size[0]*4).times { display << "-" }
+    display << "-\n"
 
     #Add a row for each y axis value
     ('A'..self.ys[@size[1]-1]).each do |letter|
-      display.concat("#{letter} |") if letter.length == 1
-      display.concat("#{letter}|") if letter.length == 2
+      display << "#{letter} |" if letter.length == 1
+      display << "#{letter}|" if letter.length > 1
       (1..@size[0]).each do |number|
         hole = board["#{letter}#{number}".to_sym]
-        display.concat(" #{hole} |")
+        display << " #{hole} |"
       end
-      display.concat("\n")
+      display << "\n"
     end
 
     #Last line
-    display.concat("  ")
-    (@size[0]*4).times { display.concat("-") }
-    display.concat("-")
+    display << "  "
+    (@size[0]*4).times { display << "-" }
+    display << "-"
     puts display
   end
 

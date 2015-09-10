@@ -8,13 +8,16 @@ class HumanPlayer < Player
   end
 
   def place_ships(array_of_ship_lengths = [2,3,3,4,5])
+    #puts "THE BATTLE FIELD"
+    #@grid.display
     array_of_ship_lengths.each do |ship_length|
 
       # Collect position from user
       position = ""
       loop do
         puts "#{@name}, where would you like to place a ship of length #{ship_length}?"
-        position = get_user_input
+        position_response = get_user_input
+        position = position_response.upcase
         break if @grid.board.has_key?(position.to_sym)
         puts "That is an invalid position."
       end
@@ -42,6 +45,8 @@ class HumanPlayer < Player
       end
 
       @ships << newship
+      # puts "YOUR BOARD:"
+      # @grid.display
     end
 
   end
@@ -51,14 +56,15 @@ class HumanPlayer < Player
     # Loop until I have a valid guess.
     until guess
       puts "#{@name}, please enter the coordinates for your next shot (e.g. 'B10'):"
-      guess = get_user_input
-      byebug if guess == "Down"
-      guess.to_s.to_sym
-      !@shots_fired.include?(guess) || guess = nil
-      !@grid.board.has_key?(guess) || guess = nil
+      guess_response = get_user_input
+      # guess_response = guess_response.upcase
+      exit if guess_response == "EXIT"
+      guess = guess_response.to_sym
+      @shots_fired.any? { |p| p.position == guess } || next
+      !@grid.board.has_key?(guess) || next
     end
     @shots_fired.push(Position.new(position: guess))
-    guess.to_s
+    guess_response
   end
 
 end
