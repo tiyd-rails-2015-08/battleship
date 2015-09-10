@@ -49,13 +49,15 @@ class Game
   end
 
   def play
-      until @player1.grid.sunk? || @player2.grid.sunk? do
-        take_turn
-      end
+    welcome
+    place_ships
+    until @player1.grid.sunk? || @player2.grid.sunk? do
+      take_turn
+      display_status
     end
     if @player2.grid.sunk? == true
       puts "Congratulations, #{@player1.name}!"
-    elsif @player1.grid.sunk? == true
+    else @player1.grid.sunk? == true
       puts "Congratulations, #{@player2.name}!"
     end
   end
