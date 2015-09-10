@@ -17,11 +17,19 @@ class Game
   end
 
   def display_status
-    puts "SHOTS TAKEN:"
-    @player2.grid.display_shots_grid
-    puts
-    puts "YOUR BOARD:"
-    @player1.grid.display_boat_grid
+    if @p1_turn
+      puts "SHOTS TAKEN:"
+      @player2.grid.display_shots_grid
+      puts
+      puts "YOUR BOARD:"
+      @player1.grid.display_boat_grid
+    else
+      puts "SHOTS TAKEN:"
+      @player1.grid.display_shots_grid
+      puts
+      puts "YOUR BOARD:"
+      @player2.grid.display_boat_grid
+    end
   end
 
   def take_turn
@@ -52,8 +60,8 @@ class Game
     welcome
     place_ships
     until @player1.grid.sunk? || @player2.grid.sunk? do
-      take_turn
       display_status
+      take_turn
     end
     if @player2.grid.sunk? == true
       puts "Congratulations, #{@player1.name}!"
