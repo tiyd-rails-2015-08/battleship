@@ -11,7 +11,9 @@ class HumanPlayer < Player
   end
 
   def place_ships(length_array = [2, 3, 3, 4, 5])
-    length_array.each do |s|
+    counter = 0
+    loop do |s|
+      s = length_array[counter]
       ship = Ship.new(s)
       puts "#{name}, where would you like to place a ship of length #{s}?"
       input = get_user_input
@@ -23,10 +25,16 @@ class HumanPlayer < Player
         horizontal = true
       elsif input == "Down"
         horizontal = false
-      else
       end
-      @grid.place_ship(ship, x, y, horizontal)
-      @ships << ship
+      if @grid.place_ship(ship, x, y, horizontal)
+        counter = counter + 1
+        @ships << ship
+        if @ships.length == length_array.length
+          break
+        end
+      else
+        puts "Unfortunately, that ship overlaps with one of your other ships.  Please try again."
+      end
     end
   end
 
