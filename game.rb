@@ -49,8 +49,8 @@ class Game
   end
 
   def play
-    loop take_turn do
-      until @player1.grid.sunk? || @player2.grid.sunk?
+      until @player1.grid.sunk? || @player2.grid.sunk? do
+        take_turn
       end
     end
     if @player2.grid.sunk? == true
