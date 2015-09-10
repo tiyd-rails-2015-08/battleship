@@ -56,10 +56,12 @@ class Grid
   def sunk?
     return false if @ships == []
 
-    @ships.each do |s|
-      return false unless s.sunk?
-    end
-    true
+    @ships.all? {|s| s.sunk?}
+
+    # @ships.each do |s|
+    #   return false unless s.sunk?
+    # end
+    # true
 
   end
 
