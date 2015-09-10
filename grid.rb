@@ -29,22 +29,20 @@ class Grid
   def display
     letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
-    #puts ""
     puts "    1   2   3   4   5   6   7   8   9   10"
     puts "  -----------------------------------------"
 
     10.times do |y|
+#This stuff happens once per row
       output_row = "#{letters[y]} |"
-      #This stuff happens once per row
-      # game_block = "|   "
       10.times do |x|
+#This stuff happens once per position
         if @hits.include?([x+1, y+1])
           output_row += " X |"
         elsif self.has_ship_on?(x+1, y+1)
           output_row += " O |"
         else
           output_row += "   |"
-        #This stuff happens once per position
         end
 
       end
@@ -58,5 +56,13 @@ class Grid
     @hits << [x, y]
     end
   end
+
+  # def grid sunk?
+  #
+  # end
+  #
+  # def x_of
+  #
+  # end
 
 end
