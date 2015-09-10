@@ -87,7 +87,7 @@ class Grid
       if @locations[get_position(x, y)].fired_upon == false
         (print "|   ")
       else @locations[get_position(x, y)].fired_upon == true
-        if fire_at(x, y) == true
+        if @locations[get_position(x, y)].occupied == true
           (print "| + ")
         else
           (print "| - ")
@@ -114,7 +114,6 @@ class Grid
       print " "
       y += 1
       (1..10).each do |x| #while printing the below, check for status of positions
-        #has_ship_on?(x, y) ? (print "| O ") : (print "|   ")
         if (has_ship_on?(x, y) && @locations[get_position(x,y)].fired_upon == false)
           (print "| O ")
         elsif (has_ship_on?(x, y) && @locations[get_position(x,y)].fired_upon == true)
