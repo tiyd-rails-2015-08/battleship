@@ -5,34 +5,71 @@ class Grid
 
   def has_ship_on?(x,y)
     @ships.each do |ship|
-      return true if ship.covers?(x, y)
+      return ship if ship.covers?(x, y)
     end
     false
   end
 
   def place_ship(ship, x, y, across)
     ship.place(x, y, across)
-    @ships << ship
+    overlap = false
+    @ships.each do |s|
+      if ship.overlaps_with? (s)
+        overlap = true
+      end
+    end
+    unless overlap
+      @ships << ship
+    end
   end
 
   def display
-    puts empty_grid
+    display_header
+    display_line
+    ("A".."J").each_with_index do |l, i|
+      y = i+1
+      line = l + " |"
+      (1..10).each do |x|
+        ship = has_ship_on?(x, y)
+        line << if ship && ship.hit_on?(x, y)
+                  " X |"
+                elsif ship
+                  " O |"
+                else
+                  "   |"
+                end
+      end
+      puts line
+    end
+    display_line
   end
 
-  def empty_grid
-      %Q{    1   2   3   4   5   6   7   8   9   10
-  -----------------------------------------
-A |   |   |   |   |   |   |   |   |   |   |
-B |   |   |   |   |   |   |   |   |   |   |
-C |   |   |   |   |   |   |   |   |   |   |
-D |   |   |   |   |   |   |   |   |   |   |
-E |   |   |   |   |   |   |   |   |   |   |
-F |   |   |   |   |   |   |   |   |   |   |
-G |   |   |   |   |   |   |   |   |   |   |
-H |   |   |   |   |   |   |   |   |   |   |
-I |   |   |   |   |   |   |   |   |   |   |
-J |   |   |   |   |   |   |   |   |   |   |
-  -----------------------------------------
-}
+  def fire_at(x, y)
+    ship = has_ship_on?(x, y)
+    if ship
+      ship.fire_at(x, y)
+    else
+      false
+    end
   end
+
+  def sunk?
+    return false if @ships == []
+
+    @ships.each do |s|
+      return false unless s.sunk?
+    end
+    true
+
+  end
+
+  private def display_header
+    puts "    1   2   3   4   5   6   7   8   9   10"
+    # puts "    " + (1..10).to_a.join("   ")
+  end
+
+  private def display_line
+    puts "  -----------------------------------------"
+  end
+
 end

@@ -6,16 +6,6 @@ class Ship
     @hits = []
   end
 
-  # def place(x, y, across)
-  #   @across = across
-  #   @x = x
-  #   @y = y
-  # end
-  #
-  # def covers?(x, y)
-  #   @across ? (@x...@x+@length).include?(x) && @y == y : (@y...@y+@length).include?(y) && @x == x
-  # end
-
   def place(x, y, across)
     return false unless @positions.empty?
     if across
@@ -49,5 +39,9 @@ class Ship
 
   def sunk?
     @hits.length == @length
+  end
+
+  def hit_on?(x, y)
+    @hits.include?([x, y])
   end
 end
