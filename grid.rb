@@ -1,68 +1,90 @@
-require './ship'
+# require './ship'
 
 class Grid
   def initialize
     @ships = []
-    @positions = []
-    @hits = []
+    # @positions = []
+    # @hits = []
   end
 
   def has_ship_on?(x, y)
     @ships.each do |ship|
-      return true if ship.covers?(x, y)
+      return ship if ship.covers?(x, y)
     end
     false
   end
 
   def place_ship(ship, x, y, across)
     ship.place(x, y, across)
-    @ships.each do |other_ship|
-      if ship.overlaps_with?(other_ship)
-        return false
-      else
-        true
+    overlap = false
+    @ships.each do |s|
+      if ship.overlaps_with? (s)
+        overlap = true
       end
     end
-    @ships << ship
+    unless overlap
+      @ships << ship
+    end
   end
 
   def display
-    letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    #letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 
     puts "    1   2   3   4   5   6   7   8   9   10"
     puts "  -----------------------------------------"
 
-    10.times do |y|
-#This stuff happens once per row
-      output_row = "#{letters[y]} |"
-      10.times do |x|
-#This stuff happens once per position
-        if @hits.include?([x+1, y+1])
-          output_row += " X |"
-        elsif self.has_ship_on?(x+1, y+1)
-          output_row += " O |"
+    ("A".."J").each_with_index do |l, i|
+      y = i+1
+      line = l + " |"
+      (1..10).each do |x|
+        ship = has_ship_on?(x, y)
+        line << if ship && ship.hit_on?(x, y)
+                  " X |"
+        elsif ship
+                  " O |"
         else
-          output_row += "   |"
+                  "   |"
         end
 
       end
-      puts output_row
+      puts line
     end
   puts "  -----------------------------------------"
   end
 
   def fire_at(x, y)
-    if has_ship_on?(x, y) && !@hits.include?([x, y])
-    @hits << [x, y]
+    # if has_ship_on?(x, y) && !@hits.include?([x, y])
+    # @hits << [x, y]
+    # end
+    ship = has_ship_on?(x, y)
+    if ship
+      ship.fire_at(x, y)
+    else
+      false
     end
   end
 
-  # def grid sunk?
-  #
-  # end
-  #
-  # def x_of
-  #
+  def sunk?
+    return false if @ships == []
+
+    @ships.all? {|s| s.sunk?}
+  end
+
+    # @ships.each do |s|
+    #   return false unless s.sunk?
+    # end
+    # true
+
+  def x_of(grid_square)
+    grid_square.slice(1..grid_square.length).to_i
+  end
+
+  # def y_of(grid_square)
+  #   grid_square.split(y, x)
+  #     ("A".."J").each do |y|
+  #     column = y-"A".ord + 1
+  #   end
+  #   puts column
   # end
 
 end
