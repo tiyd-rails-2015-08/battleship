@@ -14,17 +14,17 @@ class Ship
     return false unless @positions.empty?
     if horizontal
       (x...x + @length).each do |i|
-        @positions << [i, y]
+      @positions << [i, y]
       end
     else
       (y...y + @length).each do |j|
-        @positions << [x, j]
+      @positions << [x, j]
       end
     end
   end
 
   def covers?(x, y)
-    # This method returns true or false for if the ship is covering these postions in the @positions array.
+    # This method returns true or false for if the ship is covering these positions in the @positions array.
     # If the place method returns true, they are covering these positions (the coordinates have been stored)
     @positions.include?([x, y])
   end
@@ -45,6 +45,6 @@ class Ship
   end
 
   def sunk?
-    @hit.length >= @length
+    @positions != [] && @hit.length >= @length
   end
 end

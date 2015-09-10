@@ -34,7 +34,7 @@ class Grid
         if ship.overlaps_with?(s)
           overlap = true
         end
-      end
+    end
     unless overlap
       @ships << ship
     end
@@ -64,17 +64,21 @@ class Grid
   end
 
   def sunk?
-    return false if @ships.length == 0
-    # Loops over all ships to check if sunk? method returns true.
-    @ships.reject(&:sunk?).length == 0 # return true when all ships are sunk
+    @ships != [] ? @ships.all? { |ship| ship.sunk? } : false
   end
 
   def x_of(input)
-
+    input.slice(1..input.length).to_i
   end
 
   def y_of(input)
-
+      letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+      y = input[0]
+      letters.each_with_index do |k, index|
+        if y == k
+          return (index + 1)
+        end
+      end
   end
 
 end
