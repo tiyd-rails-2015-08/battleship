@@ -61,15 +61,14 @@ class Grid
 
   end
 
-    def x_of(grid_square)
-      grid_square.slice(1..grid_square.length).to_i
-    end
+  def x_of(grid_square)
+    grid_square.slice(1..grid_square.length).to_i
+  end
 
-    def y_of(grid_square)
-      letter = grid_square.slice(0)
-#      grid_square.slice(letter, num)
-      letter.ord - "A".ord+1
-    end
+  def y_of(grid_square)
+    letter = grid_square.slice(0)
+    letter.ord - "A".ord+1
+  end
 
   private def display_header
     puts "    1   2   3   4   5   6   7   8   9   10"
@@ -81,21 +80,3 @@ class Grid
   end
 
 end
-=begin
-irb(main):004:0> "a".ord
-=> 97
-irb(main):005:0> "A".ord
-=> 65
-irb(main):006:0> "B".ord
-=> 66
-irb(main):007:0> "B".ord - 64
-=> 2
-irb(main):008:0> "A".ord - 64
-=> 1
-irb(main):009:0> "G".ord - 64
-=> 7
-irb(main):010:0> "G".ord - "A".ord + 1
-=> 7
-irb(main):011:0> "C".ord - "A".ord + 1
-=> 3
-=end
