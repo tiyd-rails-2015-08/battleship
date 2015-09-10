@@ -10,6 +10,10 @@ class HumanPlayer < Player
     @ships = []
   end
 
+  def random
+      rand(0..9)
+  end
+
   def place_ships(length_array = [2, 3, 3, 4, 5])
     counter = 0
     loop do |s|
