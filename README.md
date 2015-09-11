@@ -28,4 +28,5 @@ If you want Normal mode's test to work, you will need to go back to a previous c
 ## TODO
 - [x] Add salvo mode
 - [x] Pass all the tests
+- [ ] Re-write tests to anticipate new "onboarding" user flow.
 - [ ] Write 10 more tests
