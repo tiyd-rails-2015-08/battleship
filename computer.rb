@@ -1,3 +1,6 @@
+require './ship'
+require './player'
+
 def get_user_input
   gets.chomp
 end
