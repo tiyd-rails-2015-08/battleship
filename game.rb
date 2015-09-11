@@ -49,6 +49,23 @@ class Game
       # TODO
       # Difference is to have a shot for every ship on the grid during each turn.
       # Call your shots first, and then determine if they're hits or misses.
+      shooter_calls = shooter.ships.select { |s| !s.sunk? }.length
+      shooter_shots = []
+      until shooter_calls == 0
+        shooter_shots << shooter.call_shot
+        shooter_calls -= 1
+      end
+      shooter_shots.each do |s|
+        x = victim.grid.x_of(s)
+        y = victim.grid.y_of(s)
+        if victim.grid.fire_at(x, y)
+          puts("Hit at #{s}!")
+          shooter.shots_fired.last.hit = true
+        else
+          puts("Miss at #{s}!")
+        end
+      end
+
     else
       guess = shooter.call_shot
       x = victim.grid.x_of(guess)
