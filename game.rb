@@ -33,7 +33,9 @@ class Game
     playing = @player_one
     waiting = @player_two
     until @player_one.grid.sunk? || @player_two.grid.sunk?
-      playing.call_shot # <= "A1"
+      playing.call_shot
+      # puts "#{@name}, please enter the coordinates for your next shot (e.g. 'B10'):"
+      # <= This should be getting "A1" and saving playing.input
       x = waiting.grid.x_of(playing.input)
       y = waiting.grid.y_of(playing.input)
       if waiting.grid.fire_at(x, y)
@@ -41,7 +43,7 @@ class Game
       else
         puts "Miss!"
       end
-      # player.display_status
+      self.display_status if playing.class == HumanPlayer
       if playing == @player_one
         playing = @player_two
         waiting = @player_one
