@@ -37,6 +37,12 @@ class ComputerPlayer < Player
    puts "#{@name} has placed its ships."
   end
 
-
+  def call_shot
+    letters = ("A".."J").to_a
+    random = rand(0..9)
+    y = random.to_s
+    x = letters.sample
+    x + y
+  end
 
 end

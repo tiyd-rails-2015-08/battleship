@@ -11,7 +11,12 @@ class HumanPlayer < Player
   end
 
   def call_shot
-
+    numbers = (1..10).to_a
+    random = rand(0..9)
+    y = random.to_s
+    x = letters.sample
+    x + y
+  end
   end
 
   def place_ships(ship_length = [2, 3, 3, 4, 5])
