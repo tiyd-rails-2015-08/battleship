@@ -7,6 +7,47 @@ def get_user_input
   $mock_inputs.shift
 end
 
+def standard_placement
+  ["A1","Down","A3","Down","A5","Down","A7","Down","A9","Down"]
+end
+
+def standard_ships
+  "2, 3, 3, 4, 5"
+end
+
+def starting_game_status
+    %Q{SHOTS TAKEN:
+    1   2   3   4   5   6   7   8   9   10
+  -----------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |
+  -----------------------------------------
+
+YOUR BOARD:
+    1   2   3   4   5   6   7   8   9   10
+  -----------------------------------------
+A | O |   | O |   | O |   | O |   | O |   |
+B | O |   | O |   | O |   | O |   | O |   |
+C |   |   | O |   | O |   | O |   | O |   |
+D |   |   |   |   |   |   | O |   | O |   |
+E |   |   |   |   |   |   |   |   | O |   |
+F |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |
+  -----------------------------------------
+}
+  end
+
 class BattleshipTest < Minitest::Test
   def self.test_order
     :alpha
@@ -40,11 +81,18 @@ class BattleshipTest < Minitest::Test
     end
   end
 
-  def test_04_invalid_position_callout
-
-  end
-
   def test_05_accept_any_case_response
+    $mock_inputs.clear
+    $mock_inputs += "David"
+    $mock_inputs += "David2"
+    $mock_inputs += "normal"
+    $mock_inputs += standard_ships
+    $mock_inputs += "10x10"
+    $mock_inputs += standard_placement.map(&:downcase)
+
+    assert_output(starting_game_status) do
+      game = Game.new(HumanPlayer.new("Tester"),ComputerPlayer.new)
+    end
 
   end
 
