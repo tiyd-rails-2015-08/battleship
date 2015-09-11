@@ -32,8 +32,8 @@ class HumanPlayer < Player
         across_response = get_user_input
         exit if across_response.upcase == "EXIT"
 
-        across = true if across_response.downcase == "across"
-        across = false if across_response.downcase == "down"
+        across = true if across_response.downcase == "across" || across_response.downcase == "a"
+        across = false if across_response.downcase == "down" || across_response.downcase == "d"
         puts "That is an invalid direction." if across.nil?
       end
 

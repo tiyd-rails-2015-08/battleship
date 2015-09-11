@@ -47,39 +47,41 @@ unless mode_response.downcase == "salvo" || mode_response.downcase == "normal"
 end
 mode_response.downcase == "salvo" ? salvo_mode = true : salvo_mode = false
 
-ship_response = ""
+ship_array = []
 loop do
   puts  "Please list me the ships and their lengths. "\
         "For example: 2, 3, 3, 4, 5 (this is the standard ship set)"
   ship_response = get_user_input
-  ship_response = ship_response.delete(" ").split(",").map(&:to_i)
-  break ship_response.length > 1
+  ship_array = ship_response.delete(" ").split(",").map(&:to_i)
+  ship_array = [2,3,3,4,5] if ship_response.downcase == "standard"
+  break ship_array.length > 1
 end
 
-grid_response = ""
+grid_size = []
 loop do
   puts  "Please tell me the size of your grid. \n"\
         "For example: 10x10 (this is the standard ship set)"
   grid_response = get_user_input
   grid_response.strip!
-  grid_response = grid_response.split("x").map(&:to_i)
-  break grid_response.length > 1
+  grid_size = grid_response.split("x").map(&:to_i)
+  grid_size = [10,10] if grid_response.downcase == "standard"
+  break grid_size.length > 1
 end
 
 # Start the game
 
 if player1_response.downcase == "computer"
-  player1 = ComputerPlayer.new(grid_response)
+  player1 = ComputerPlayer.new(grid_size)
 else
-  player1 = HumanPlayer.new("#{player1_response}", grid_response)
+  player1 = HumanPlayer.new("#{player1_response}", grid_size)
 end
 
 if player2_response.downcase == "computer"
-  player2 = ComputerPlayer.new(grid_response)
+  player2 = ComputerPlayer.new(grid_size)
 else
-  player2 = HumanPlayer.new("#{player2_response}", grid_response)
+  player2 = HumanPlayer.new("#{player2_response}", grid_size)
 end
 
 
-game = Game.new(player1, player2, ship_response, salvo_mode)
+game = Game.new(player1, player2, ship_array, salvo_mode)
 game.play
