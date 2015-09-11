@@ -1,5 +1,5 @@
 class Ship
-  attr_reader :length
+  attr_reader :length, :hit
 
   def initialize(length)
     @length = length
@@ -36,6 +36,7 @@ class Ship
   def fire_at(x, y)
     # Checking if the coordinate x, y can be hit.  If true, it adds coordinate to the @hit array.
     # Pushes x, y coordinates into @hit array if covers? the coordinates has a ship on it is (true).
+
     if covers?(x, y) && !@hit.include?([x, y])
       @hit << [x, y]
     end
@@ -47,6 +48,10 @@ class Ship
 
   def hit_on?(x, y)
       @hit.include?([x, y])
+  end
+
+  def miss_on?(x, y)
+    @miss.include?([x, y])
   end
 
 end

@@ -1,9 +1,11 @@
-
 class Grid
+
+attr_reader :miss
 
   def initialize
     @ships = []
     @ship_coords = []
+    @miss = []
   end
 
   def display
@@ -49,10 +51,16 @@ class Grid
   end
 
   def fire_at(x, y)
-    ship = has_ship_on?(x, y)
+     ship = has_ship_on?(x, y)
     if ship
       ship.fire_at(x, y)
     else
+      if !has_ship_on?(x, y) && !@miss.include?([x, y])
+        @miss << [x, y]
+        return false
+      else
+        return true
+      end
       return false
     end
   end
