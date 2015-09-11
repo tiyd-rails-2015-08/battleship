@@ -1,3 +1,5 @@
+require './position'
+
 class Ship
   attr_reader :length, :positions, :hits
 

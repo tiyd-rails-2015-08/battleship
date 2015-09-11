@@ -1,3 +1,5 @@
+require "./ship"
+
 class Grid
   attr_reader :ships, :hits
 
