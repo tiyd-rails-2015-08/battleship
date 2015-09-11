@@ -58,4 +58,13 @@ class Grid
     return false if @ships == []
     @ships.all? { |s| s.sunk?}
   end
+
+  def x_of(grid_input)
+    x_val = grid_input.match(/\d+/).to_s.to_i
+  end
+
+  def y_of(grid_input)
+    first_char = grid_input.chars.first
+    y_val = first_char.ord - 64
+  end
 end

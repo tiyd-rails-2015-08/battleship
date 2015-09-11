@@ -1,7 +1,12 @@
+require './grid'
+
 class Player
   attr_reader :name
   def initialize
   end
+
+  grid = Grid.new
+
 end
 
 class HumanPlayer < Player
@@ -11,11 +16,13 @@ class HumanPlayer < Player
     else
       @name = "Dave"
     end
+
   end
 
   def name
     @name
   end
+
 end
 
 class ComputerPlayer < Player
