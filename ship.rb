@@ -1,3 +1,6 @@
+
+require './grid'
+
 class Ship
   attr_reader :length
   def initialize(length)
@@ -27,8 +30,8 @@ class Ship
   def overlaps_with?(other_ship)
     @positions.any? {|p| other_ship.covers?(p[0],p[1])}
 
-    # @positions.each |place|
-    #   return true if other_ship.covers?(place[0],place[1])
+    # @positions.each do |place|
+    #   return true if other_ship.covers?(place[0], place[1])
     # end
     # false
   end
@@ -46,4 +49,5 @@ class Ship
   def hit_on?(x, y)
     @hits.include?([x, y])
   end
+
 end

@@ -1,9 +1,14 @@
+
+# require './ship'
+
 class Grid
   def initialize
     @ships = []
+    # @positions = []
+    # @hits = []
   end
 
-  def has_ship_on?(x,y)
+  def has_ship_on?(x, y)
     @ships.each do |ship|
       return ship if ship.covers?(x, y)
     end
@@ -24,8 +29,11 @@ class Grid
   end
 
   def display
-    display_header
-    display_line
+    #letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+
+    puts "    1   2   3   4   5   6   7   8   9   10"
+    puts "  -----------------------------------------"
+
     ("A".."J").each_with_index do |l, i|
       y = i+1
       line = l + " |"
@@ -38,13 +46,17 @@ class Grid
                 else
                   "   |"
                 end
+
+              end
+        puts line
       end
-      puts line
-    end
-    display_line
+    puts "  -----------------------------------------"
   end
 
   def fire_at(x, y)
+    # if has_ship_on?(x, y) && !@hits.include?([x, y])
+    # @hits << [x, y]
+    # end
     ship = has_ship_on?(x, y)
     if ship
       ship.fire_at(x, y)
@@ -57,21 +69,20 @@ class Grid
     return false if @ships == []
 
     @ships.all? {|s| s.sunk?}
+  end
 
     # @ships.each do |s|
     #   return false unless s.sunk?
     # end
     # true
 
+  def x_of(grid_square)
+    grid_square.slice(1..grid_square.length).to_i
   end
 
-  private def display_header
-    puts "    1   2   3   4   5   6   7   8   9   10"
-    # puts "    " + (1..10).to_a.join("   ")
-  end
-
-  private def display_line
-    puts "  -----------------------------------------"
+  def y_of(grid_square)
+    letter = grid_square.slice(0)
+    letter.ord - "A".ord + 1
   end
 
 end
