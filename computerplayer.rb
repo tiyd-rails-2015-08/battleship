@@ -2,13 +2,15 @@ require './player'
 require './ship'
 
 class ComputerPlayer < Player
-  attr_reader :name, :grid, :ships
+  attr_reader :name, :grid, :ships, :x, :y
 
   def initialize
     @name = "HAL 9000"
     @grid = Grid.new
     @ships = []
     @computer_shot = []
+    @x = x
+    @y = y
   end
 
   def place_ships(length_array = [2, 3, 3, 4, 5])
@@ -32,9 +34,9 @@ class ComputerPlayer < Player
   def call_shot
     letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     random = rand(0..9)
-    y = random.to_s
-    x = letters.sample
-    x + y
+    @y = random.to_s
+    @x = letters.sample
+    @x + @y
   end
 
 end

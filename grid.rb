@@ -70,7 +70,7 @@ attr_reader :miss
   end
 
   def x_of(input)
-    input.slice(1..input.length).to_i
+    input.slice(1..-1).to_i
   end
 
   def y_of(input)

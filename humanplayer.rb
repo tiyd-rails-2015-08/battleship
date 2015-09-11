@@ -3,12 +3,15 @@ def get_user_input
 end
 
 class HumanPlayer < Player
-  attr_reader :name, :grid, :ships
+  attr_reader :name, :grid, :ships, :x, :y, :input
 
   def initialize(name = "Dave")
     @name = name
     @grid = Grid.new
     @ships = []
+    @x = x
+    @y = y
+    @input = input
   end
 
   def place_ships(length_array = [2, 3, 3, 4, 5])
@@ -34,17 +37,17 @@ class HumanPlayer < Player
           break
         end
       else
-        puts "Unfortunately, that ship overlaps with one of your other ships.  Please try again.\n"
+        puts "Unfortunately, that ship overlaps with one of your other ships.  Please try again."
       end
     end
   end
 
   def call_shot
-    puts "#{@name}, please enter the coordinates for your next shot (e.g. 'B10'):\n"
-    input = get_user_input
-    x = @grid.x_of(input).to_s
-    y = @grid.y_of(input).to_s
-    x + y
+    puts "#{@name}, please enter the coordinates for your next shot (e.g. 'B10'):"
+    @input = get_user_input
+    @x = @grid.x_of(input).to_s
+    @y = @grid.y_of(input).to_s
+    @x + @y
   end
 
   def display
