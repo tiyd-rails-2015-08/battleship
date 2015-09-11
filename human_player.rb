@@ -8,6 +8,4 @@ class HumanPlayer < Player
     @name = name
   end
 
-  
-
 end

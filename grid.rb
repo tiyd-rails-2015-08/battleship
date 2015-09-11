@@ -1,3 +1,4 @@
+
 # require './ship'
 
 class Grid
@@ -40,16 +41,16 @@ class Grid
         ship = has_ship_on?(x, y)
         line << if ship && ship.hit_on?(x, y)
                   " X |"
-        elsif ship
+                elsif ship
                   " O |"
-        else
+                else
                   "   |"
-        end
+                end
 
+              end
+        puts line
       end
-      puts line
-    end
-  puts "  -----------------------------------------"
+    puts "  -----------------------------------------"
   end
 
   def fire_at(x, y)
