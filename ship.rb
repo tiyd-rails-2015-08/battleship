@@ -20,6 +20,11 @@ class Ship
     end
   end
 
+  # def place(x, y, across)
+  # length.times do |i|
+  #   @positions << (across ? Position.new(x+i, y) : Position.new(x, y+i)
+  # end
+
   def covers?(x, y)
     @positions.include?([x,y])
   end

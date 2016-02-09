@@ -20,7 +20,8 @@ class ComputerPlayer < Player
  end
 
  def call_shot
-   @computer_shot = ["A", 1]
+  #  @computer_shot = ["A", 1]
+  "#{("A".."J").to_a.sample}" + "#{rand(1..10)}"
  end
 
  def place_ships(ship_length = [2, 3, 3, 4, 5])
