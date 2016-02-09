@@ -9,8 +9,8 @@ class Ship
 
   def place(x, y, across)
     return false unless @positions.empty? #return false if @positions is NOT empty
-    if across
-      (x...x+@length).each do |i|
+      if across
+        (x...x+@length).each do |i|
         @positions << [i, y]
       end
     else
