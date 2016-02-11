@@ -4,6 +4,7 @@ end
 
 class HumanPlayer < Player
   attr_reader :name, :grid, :ships
+
   def initialize(name = "Dave")
     @name = name
     @grid = Grid.new

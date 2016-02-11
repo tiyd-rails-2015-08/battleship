@@ -6,6 +6,8 @@ class Grid
     @ships = []
     @grid = []
     @hits = []
+    @hits_on_opponent = []
+    @misses_on_opponent = []
   end
 
   def has_ship_on?(x, y)
@@ -36,26 +38,79 @@ class Grid
 #   return true
   end
 
+  # def display
+  #   display_header
+  #   display_line
+  #   ("A".."J").each_with_index do |l, i|
+  #     y = i+1
+  #     line = l + " |"
+  #     (1..10).each do |x|
+  #       ship = has_ship_on?(x, y)
+  #       line << if ship && ship.hit_on?(x, y)
+  #                 " X |"
+  #               elsif ship
+  #                 " O |"
+  #               else
+  #                 "   |"
+  #               end
+  #     end
+  #     puts line
+  #   end
+  #   display_line
+  # end
+
   def display
+    display_with_block do |x, y|
+      ship = has_ship_on?(x, y)
+      if ship && ship.hit_on?(x, y)
+        " X |"
+      elsif ship
+        " O |"
+      else
+        "   |"
+      end
+    end
+end
+
+def display_shots
+    display_with_block do |x, y|
+      if @hits_on_opponent.include?([x, y])
+        " + |"
+      elsif @misses_on_opponent.include?([x, y])
+        " - |"
+      else
+        "   |"
+      end
+    end
+  end
+
+  def display_with_block
     display_header
     display_line
     ("A".."J").each_with_index do |l, i|
       y = i+1
       line = l + " |"
       (1..10).each do |x|
-        ship = has_ship_on?(x, y)
-        line << if ship && ship.hit_on?(x, y)
-                  " X |"
-                elsif ship
-                  " O |"
-                else
-                  "   |"
-                end
+        line << yield(x, y)
       end
       puts line
     end
     display_line
   end
+
+
+  def miss_opponent(c)
+    @misses_on_opponent << [x_of(c), y_of(c)]
+  end
+
+  def hit_opponent(c)
+    @hits_on_opponent << [x_of(c), y_of(c)]
+  end
+
+  private def display_header
+    puts "    1   2   3   4   5   6   7   8   9   10"
+  end
+
 
   private def display_header
     puts "    1   2   3   4   5   6   7   8   9   10"
